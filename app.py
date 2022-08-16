@@ -18,26 +18,30 @@ class App:
     print('se esta jugando desde python')
     state = self.getBoardFromHTML()
     player = self.getPlayerFromHTML()
-    pc_play = self.getPCPlay(state, player)
-    print('se adquirió la jugada')
+    print('el jugador es: ', player)
+    difficulty = self.getDifficultyFromHTML()
+    pc_play = self.getIAPlay(state, player, difficulty)
+    
+    print('se adquirio la jugada')
     print('la jugada es jugar en la columna: ', pc_play)
+
+    #Change the html play list when the play is done
     self.placePlayInHTML(pc_play)
 
     #Click to let know the user we've already played
     self.js.document.getElementById('user_turn').click()
 
-  def getPCPlay (self, state, player):
+  def getIAPlay (self, state, player, difficulty):
     nodeJuego = NodeConnectFour(player,value="inicio",state=state, operators=self.operators)
     tree = Tree(nodeJuego, self.operators)
-    objective=tree.alpha_beta(3)
+    objective=tree.alpha_beta(difficulty)
     return objective.operator
-
 
   def getBoardFromHTML (self):
     playsString = str(self.js.document.getElementById('secret_play_list').innerHTML)
     plays = []
 
-    #Si no hay jugadas registradas
+    #If there are not registered plays
     if len(playsString) == 0:
       return self.initState
     
@@ -60,7 +64,9 @@ class App:
     else:
       return False
 
-    return True
+  def getDifficultyFromHTML(self):
+    difficulty = str(self.js.document.getElementById('secret_difficulty').innerHTML)
+    return int(difficulty)
 
   def placePlayInHTML (self, play_col):
     playsString = str(self.js.document.getElementById('secret_play_list').innerHTML)

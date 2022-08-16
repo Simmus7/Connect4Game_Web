@@ -5,22 +5,60 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Connect 4</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='connect4.css')}}">
     <script type = "text/javascript" src="{{ url_for('static', filename='connect4.js')}}"></script>
 </head>
 <body>
    
-    <h1>Connect 4</h1>
-    <h2 id="winner"></h2>
-    <div id="board"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="selection_box">
+                    <div>Select the player that will make the first move!</div>
+                    <select id="first_Player">
+                        <option value="user" selected>You!</option>
+                        <option value="IA">Artificial Intelligence</option>
+                    </select>
+                    <div>Select the difficulty</div>
+                    <select id="difficulty">
+                        <option value="1">1</option>
+                        <option value="2" selected>2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        
+                    </select>
+                    <button id="setGameVariables">Save and refresh</button>
+                </div>
+ 
+            </div>
+
+            <div class="col-md-9">
+                <div id="game">
+                    <h1>Connect 4</h1>
+                    <h2 id="winner"></h2>
+                    <div id="board"></div>
+                </div>
+
+            </div>
+        </div>
 
 
+
+    </div>
 
     <div id = "secret_play_list" style = "display: none"></div>
     <div id = "secret_pc_player" style = "display: none">2</div>
+    <div id = "secret_difficulty" style = "display: none">1</div>
 
-    <button id = "pcpython_turn" style = "display: none" onclick="server.main_play()"></button>
-    <button id = "user_turn" style = "display: none">Leer jugada de python</button>
+    <button id = "IA_turn" style = "display: none" onclick="server.main_play()"></button>
+    <button id = "user_turn" style = "display: none"></button>
     
 </body>
 </html>

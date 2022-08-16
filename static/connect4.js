@@ -1,21 +1,36 @@
+//Global variables for the game
 var playerRed = 1;
 var playerYellow = 2;
 var currPlayer = playerRed;
-
+var userStarts = true;
 var gameOver = false;
 var board;
-
 var rows = 6;
 var columns = 7;
 var currColumns = []; //keeps track of which row each column is at.
+var gameWasRefreshed = false
 
 window.onload = function() {
     setGame();
 }
 
-//Crates de board
+//Creates de board and the necessary things to play
 function setGame() {
-    eventListenerPCPlay()
+    //Refresh the board and the game variables
+    document.getElementById("board").remove()
+    let htmlBoard = document.createElement("div")
+    htmlBoard.id = "board"
+    document.getElementById("game").append(htmlBoard)
+
+    document.getElementById("secret_play_list").innerHTML = ""
+    gameOver = false
+
+    //The event listeners cannot be initialized twice, so we have to check if they already did
+    if (!gameWasRefreshed) {
+        addJavaScriptEventListeners();
+    }
+
+    //Sets the board and its event listeners
     board = [];
     currColumns = [5, 5, 5, 5, 5, 5, 5];
     for (let r = 0; r < rows; r++) {
@@ -27,14 +42,27 @@ function setGame() {
             let tile = document.createElement("div");
             tile.id = r.toString() + "-" + c.toString();
             tile.classList.add("tile");
-            tile.addEventListener("click", setPiece);
+            if (userStarts) { 
+              tile.addEventListener("click", setPieceUser);
+            }
             document.getElementById("board").append(tile);
         }
         board.push(row);
     }
+    //If pc moves first, we have to click the IA's turn button, and then add the event listener to allow the user to play
+    if (!userStarts) {
+        document.getElementById("IA_turn").click()
+        console.log("Se realizó la primera jugada de la IA")
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < columns; c++) {
+                document.getElementById(r.toString() + "-" + c.toString()).addEventListener("click", setPieceUser);
+            }
+        }
+    }
 }
 
-function setPiece() {
+//When the user clicks somewhere on the board, this is executed, getting the coordenates and placing the piece
+function setPieceUser() {
     if (gameOver) {
         return;
     }
@@ -62,16 +90,18 @@ function setPiece() {
     r -= 1; //update the row height for that column
     currColumns[c] = r; //update the array
 
-    addMoveToSecretBoard(c)
+    //Updates the secret list play list
+    document.getElementById("secret_play_list").innerHTML = document.getElementById("secret_play_list").innerHTML + c
     //Check if someone already won
     checkWinner();
     //Makes Python/IA to play
-    document.getElementById('pcpython_turn').click()
+    document.getElementById('IA_turn').click()
     
     
 }
 
-function setPiecePC (column_to_play) {
+//When the python IA plays, this is executed, placing the IA's piece
+function setPieceIA (column_to_play) {
     if (gameOver) {
         return;
     }
@@ -97,22 +127,45 @@ function setPiecePC (column_to_play) {
     checkWinner();
 }
 
-function addMoveToSecretBoard (c) {
-    document.getElementById("secret_play_list").innerHTML = document.getElementById("secret_play_list").innerHTML + c
-}
+//Event listener to the users_turn button, clicked by the IA when it finishes playing
+//And event listener for the multiple buttons in HTML
+function addJavaScriptEventListeners () {
+    //This will get executed when the IA clicks the button of "users_turn", drawing the IAs play
+    //and letting the user to play again
+    document.getElementById('user_turn').addEventListener('click', () => {
+        plays = document.getElementById('secret_play_list').innerHTML
+        plays = plays.toString()
+        col = plays[plays.length-1]
+        setPieceIA(col)
+    })
+    
+    document.getElementById("setGameVariables").addEventListener('click', () => {
+        gameWasRefreshed = true
 
-//This will make that when the IA clicks the button, we can update the board with the Python's play
-function eventListenerPCPlay () {
-    document.getElementById('user_turn').addEventListener('click', updateBoardWithPCPlay)
-    console.log("El event listener del PC fue seteado correctamente")
-}
+        //Set the player in the HTML that the IA will use to know if its playing first or second
+        var element = document.getElementById("first_Player");
+        var player = element.options[element.selectedIndex].value;
+        
+        if (player === 'IA') {
+            console.log("El jugador que empezará jugando será la IA")
+            userStarts = false;
+            document.getElementById("secret_pc_player").innerHTML = "1"
+        }
+        else {
+            console.log("El jugador que empezará jugando será el usuario")
+            userStarts = true;
+            document.getElementById("secret_pc_player").innerHTML = "2"    
+        }
+        var element = document.getElementById("difficulty");
+        var difficulty = element.options[element.selectedIndex].value;
+        //Set the difficulty
+        document.getElementById("secret_difficulty").innerHTML = difficulty.toString() 
 
-function updateBoardWithPCPlay () {
-    console.log("Se está añadiendo la jugada que hizo python")
-    plays = document.getElementById('secret_play_list').innerHTML
-    plays = plays.toString()
-    col = plays[plays.length-1]
-    setPiecePC(col)
+        console.log("Se cambiaron las variables del juego exitosamente")
+        setGame()
+    })
+    console.log("Los event listeners para que la IA juegue y para que cambie el jugador fueron seteados correctamente")
+
 }
 
 function checkWinner() {
