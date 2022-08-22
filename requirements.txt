@@ -59,7 +59,6 @@ prometheus-client==0.14.1
 prompt-toolkit==3.0.30
 psutil==5.9.1
 pure-eval==0.2.2
-pycparser==2.21
 pywin32==304
 pywinpty==2.0.6
 pyzmq==23.2.0
