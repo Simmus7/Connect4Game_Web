@@ -163,6 +163,13 @@ function addJavaScriptEventListeners () {
 
         console.log("Se cambiaron las variables del juego exitosamente")
         setGame()
+
+        if(document.getElementById("winner").innerText!=null || document.getElementById("winner").innerText!=''){
+            document.getElementById("winner").innerText = ''
+        }
+
+        document.getElementById("winner").hidden=true
+
     })
     console.log("Los event listeners para que la IA juegue y para que cambie el jugador fueron seteados correctamente")
 
@@ -221,9 +228,13 @@ function checkWinner() {
 function setWinner(r, c) {
     let winner = document.getElementById("winner");
     if (board[r][c] == playerRed) {
-        winner.innerText = "Red Wins";             
+        winner.className = "alert alert-danger alert-dismissible fade show"
+        winner.innerText = "Red Wins";
+        winner.hidden=false             
     } else {
+        winner.className = "alert alert-warning alert-dismissible fade show"
         winner.innerText = "Yellow Wins";
+        winner.hidden=false
     }
     gameOver = true;
 }

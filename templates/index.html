@@ -6,38 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Connect 4</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='connect4.css')}}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script type = "text/javascript" src="{{ url_for('static', filename='connect4.js')}}"></script>
 </head>
 <body>
    
+    <div class="" role="alert" hidden="true" id="winner"></div>
+
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
-                <div class="selection_box">
+            <div class="col-md-4" id="menu">
+                <div>
+                    <h1>Menu</h1>
+                    <br>
+                    <div>
+                        <p>Welcome to Connect 4, to play select the difficulty between 1 and 4, with 1 being the easiest and 4
+                            being the most difficult, then place a piece on the board, or if you want the computer to start playing,
+                            change the player who will do the first move, don't forget to hit the "Save and Update" button.
+                            Once you have finished the game, to start a new game, select your conditions and press the button.
+                        </p>
+                    </div>
+                    <br>
                     <div>Select the player that will make the first move!</div>
-                    <select id="first_Player">
+                    <br>
+                    <select class="form-select" id="first_Player">
                         <option value="user" selected>You!</option>
                         <option value="IA">Artificial Intelligence</option>
                     </select>
+                    <br>
                     <div>Select the difficulty</div>
-                    <select id="difficulty">
+                    <br>
+                    <select class="form-select" id="difficulty">
                         <option value="1">1</option>
                         <option value="2" selected>2</option>
                         <option value="3">3</option>
-                        <option value="4">4</option>
-                        
-                        
+                        <option value="4">4</option>     
                     </select>
-                    <button id="setGameVariables">Save and refresh</button>
+                    <br>
+                    <button class="btn btn-secondary" id="setGameVariables">Save and Update</button>
                 </div>
  
             </div>
 
-            <div class="col-md-9">
-                <div id="game">
+            <div class="col-md-8" id="game">
+                <div>
                     <h1>Connect 4</h1>
-                    <h2 id="winner"></h2>
+                    <br>
                     <div id="board"></div>
                 </div>
 
@@ -46,7 +62,7 @@
 
 
 
-    </div>
+    </div>     
 
     <div id = "secret_play_list" style = "display: none"></div>
     <div id = "secret_pc_player" style = "display: none">2</div>
