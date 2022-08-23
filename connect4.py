@@ -170,7 +170,6 @@ class NodeConnectFour(Node):
     else:
       self.v=float('inf')
 
-  #Sí es más eficiente reversar para ver las primeras filas primero o es mejor no reversar? la reversa es O(n), creo que no, en fin, luego se cambia
   def getState(self, index):
     state=self.state
     
@@ -258,11 +257,11 @@ class NodeConnectFour(Node):
       score+=500
 
     if four.count(op)==3 and four.count(0)==1:
-      score-=40000
+      score-=10000
     elif four.count(op)==2 and four.count(0)==2:
-      score-=4000
+      score-=1000
     elif four.count(op)==1 and four.count(0)==3:
-      score-=400
+      score-=100
     return score
 
   def heuristic(self):
