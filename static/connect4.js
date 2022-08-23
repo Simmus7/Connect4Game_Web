@@ -51,7 +51,7 @@ function setGame() {
     }
     //If pc moves first, we have to click the IA's turn button, and then add the event listener to allow the user to play
     if (!userStarts) {
-        document.getElementById("IA_turn").click()
+        document.getElementById("ia_turn").click()
         console.log("Se realizó la primera jugada de la IA")
         for (let r = 0; r < rows; r++) {
             for (let c = 0; c < columns; c++) {

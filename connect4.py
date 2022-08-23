@@ -292,6 +292,7 @@ class NodeConnectFour(Node):
         four=[board[r][c],board[r+1][c+1],board[r+2][c+2],board[r+3][c+3]]
         score+=self.get_score(four,piece)
 
+    #Check negatively sloped diagonals
     for c in range (columns-3):
       for r in range (3, rows):
         four=[board[r][c],board[r-1][c+1],board[r-2][c+2],board[r-3][c+3]]
