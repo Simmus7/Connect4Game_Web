@@ -95,7 +95,7 @@ function setPieceUser() {
     //Check if someone already won
     checkWinner();
     //Makes Python/IA to play
-    document.getElementById('IA_turn').click()
+    document.getElementById('ia_turn').click()
     
     
 }
