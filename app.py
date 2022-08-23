@@ -14,7 +14,7 @@ class App:
     self.b_cols = 7
     self.initState = [[0 for i in range(self.b_cols)] for j in range(self.b_rows)]
     self.operators = [i for i, f in enumerate(self.initState[0])]
-  
+
   def main_play (self):
     print('se esta jugando desde python')
     state = self.getBoardFromHTML()
