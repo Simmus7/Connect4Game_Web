@@ -72,8 +72,7 @@ class App:
   def placePlayInHTML (self, play_col):
     playsString = str(self.js.document.getElementById('secret_play_list').innerHTML)
     playsString = playsString + str(play_col)
-    #self.js.document.getElementById('secret_play_list').innerHTML = playsString.format(0)
-    self.js.dom.secret_play_list.innerHTML = playsString.format(0)
+    self.js.dom.secret_play_list.innerHTML = playsString
 
 @app.route("/")
 def index():
