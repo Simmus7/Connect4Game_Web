@@ -1,0 +1,2 @@
+To deploy the web I need to convert the data entered by the User on an HTTP request, process that HTTP on the server
+and then send the response. Not managing the DOM as I do

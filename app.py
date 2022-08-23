@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from flask import request
 import jyserver.Flask as jsf
 from connect4 import NodeConnectFour
 from connect4 import Tree
@@ -71,7 +72,8 @@ class App:
   def placePlayInHTML (self, play_col):
     playsString = str(self.js.document.getElementById('secret_play_list').innerHTML)
     playsString = playsString + str(play_col)
-    self.js.document.getElementById('secret_play_list').innerHTML = playsString
+    #self.js.document.getElementById('secret_play_list').innerHTML = playsString.format(0)
+    self.js.dom.secret_play_list.innerHTML = playsString.format(0)
 
 @app.route("/")
 def index():
