@@ -10,7 +10,7 @@ Distribución archivos:
 -carpeta static:\
 *archivo connect4.js: contiene los métodos para el reconocimiento de la jugada del usuario, la selección de dificultad, quien empieza jugando, entre otros.\
 *archivo connect4.css: contiene los diseños para darle estética al juego en la web.\
--carpeta template: archivo index.html: tiene todo lo relacionado con el código html de la página web.\
+-carpeta template: archivo index.html: tiene todo lo relacionado con el código html de la página web.
 
 Instrucciones para el uso del juego:
 
